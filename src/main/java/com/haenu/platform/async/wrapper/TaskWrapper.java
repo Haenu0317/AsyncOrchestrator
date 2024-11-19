@@ -214,7 +214,7 @@ public class TaskWrapper<T, V> {
 
         //3.如果自己已经执行过了，继续处理下一个任务
         //可能有多个依赖，其中的一个依赖已经执行完了，并且自己也已开始执行或执行完毕。当另一个依赖执行完毕，又进来该方法时，就不重复处理了
-        if (getState() != INIT) {
+        if (getState() == FINISH || getState() == ERROR) {
             beginNext(executorService, now, remainTime);
             return;
         }

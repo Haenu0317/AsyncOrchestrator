@@ -7,7 +7,6 @@ import com.haenu.platform.async.task.TaskResult;
  * 需要监听执行结果的，实现该接口即可
  */
 @FunctionalInterface
-
 public interface ICallback<T, V> {
 
     /**

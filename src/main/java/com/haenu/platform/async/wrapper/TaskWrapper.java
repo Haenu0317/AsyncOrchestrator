@@ -302,6 +302,10 @@ public class TaskWrapper<T, V> {
      * 2.使用 synchronized 修饰了 doDependsJobs() 方法，保证了避免多线程中的多个依赖任务，使当前任务不能正确执行，或者重复执行。
      */
     private synchronized void doDependsJobs(ExecutorService executorService, List<DependWrapper> dependWrappers, TaskWrapper fromWrapper, long now, long remainTime) {
+        //如果当前任务已经完成了，依赖的其他任务拿到锁再进来时，不需要执行下面的逻辑了。
+        if (!checkIsNullResult()) {
+            return;
+        }
         //如果当前依赖是非必须的，跳过不处理
         boolean nowDependIsMust = false;
         //Set统计必须完成的上游wrapper集合

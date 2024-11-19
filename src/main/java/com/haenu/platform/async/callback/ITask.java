@@ -11,6 +11,8 @@ import java.util.Map;
  * @version 1.0
  * @date 2024/11/18 22:11
  */
+@FunctionalInterface
+
 public interface ITask<T, V> {
     /**
      * 执行耗时操作的地方，比如RPC接口调用。

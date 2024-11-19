@@ -3,7 +3,7 @@ package com.haenu.platform.async.task;
 /**
  * 执行结果
  */
-public class WorkResult<V> {
+public class TaskResult<V> {
     /**
      * 执行的结果
      */
@@ -14,23 +14,23 @@ public class WorkResult<V> {
     private ResultState resultState;
     private Exception ex;
 
-    public WorkResult(V result, ResultState resultState) {
+    public TaskResult(V result, ResultState resultState) {
         this(result, resultState, null);
     }
 
-    public WorkResult(V result, ResultState resultState, Exception ex) {
+    public TaskResult(V result, ResultState resultState, Exception ex) {
         this.result = result;
         this.resultState = resultState;
         this.ex = ex;
     }
 
-    public static <V> WorkResult<V> defaultResult() {
-        return new WorkResult<>(null, ResultState.DEFAULT);
+    public static <V> TaskResult<V> defaultResult() {
+        return new TaskResult<>(null, ResultState.DEFAULT);
     }
 
     @Override
     public String toString() {
-        return "WorkResult{" +
+        return "TaskResult{" +
                 "result=" + result +
                 ", resultState=" + resultState +
                 ", ex=" + ex +

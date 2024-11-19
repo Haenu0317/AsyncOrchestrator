@@ -188,7 +188,7 @@ public class TaskWrapper<T, V> {
      * forParamUseWrappers：缓存一组任务所有的TaskWrapper。key：id，value：TaskWrapper引用。
      * 流程图: https://img.haenu.cn/img/20241119152305.png
      * <p>
-     * 1.缓存所有TaaskerWrapper
+     * 1.缓存所有TaskWrapper
      * 2.任务超时处理
      * 3.Check是否执行过了，避免重复处理
      * 4.Check 后继next是否已经开始执行了，避免多余的处理
@@ -199,7 +199,7 @@ public class TaskWrapper<T, V> {
         //引用指向
         this.forParamUseWrappers = forParamUseWrappers;
 
-        //1.收集所有的wrapper，key是id，以便用于在Taasker工作单元中，获取任意Taasker的执行结果。
+        //1.收集所有的wrapper，key是id，以便用于在Task工作单元中，获取任意Task的执行结果。
         forParamUseWrappers.put(id, this);
 
         //时钟类获取当前时间

@@ -174,6 +174,39 @@ public class TaskWrapper<T, V> {
         nextWrappers.add(taskWrapper);
     }
 
+    /**
+     * 停止任务
+     */
+    public void stopNow() {
+        if (getState() == INIT || getState() == WORKING) {
+            fastFail(getState(), null);
+        }
+    }
+
+    /**
+     * 快速失败
+     */
+    private boolean fastFail(int expect, Exception e) {
+        //试图将它从expect状态,改成Error
+        if (!compareAndSetState(expect, ERROR)) {
+            return false;
+        }
+
+        //尚未处理过结果-默认状态
+        if (checkIsNullResult()) {
+            if (e == null) {
+                // 将task结果设置为超时状态
+                taskResult = defaultResult();
+            } else {
+                // 将task结果设置为对应异常
+                taskResult = defaultExResult(e);
+            }
+        }
+        // 回调result
+        callback.result(false, param, taskResult);
+        return true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
